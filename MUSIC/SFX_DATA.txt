@@ -1,0 +1,58 @@
+;sample SFX data
+
+
+;codes are
+;0 = end of data
+;1-127 = wait # frames (if you need more, use multiple entries)
+;$80-BF = play note
+;$C0-CF = id, which loaded sample to play
+;$D0-DF = pan, 0 = L, 7-8 = center, 15 = R
+;$E0-EF = vol
+;$F0 - retrigger off (don't use before first note)
+;$FF - retrigger on (default)
+;id, pan, & vol - won't go into effect till the next note played.
+
+;default vol/pan is full vol and center (if not specified)
+
+;see SFX_LIB.asm for constants
+;NOTE - there is an implied 1 frame wait after note
+;so you will have to subtract 1 from the wait times. (wait = val+1)
+
+
+
+SFX_DATA:
+;pointers to the data start
+.addr @sfx1, @sfx2, @sfx3, @sfx4
+
+@sfx1:
+;coin sound
+.byte SFX_ID+2, SFX_VOL+7, NOTE_C6, 2, SFX_VOL+12, NOTE_G6, 15, 0
+
+
+@sfx2:
+;fade in
+.byte SFX_ID+1, SFX_VOL+1, NOTE_C5, 4, SFX_TRIG_OFF, SFX_VOL+2, NOTE_C5, 4
+.byte SFX_VOL+3, NOTE_C5, 4, SFX_VOL+4, NOTE_C5, 4, SFX_VOL+5, NOTE_C5, 4
+.byte SFX_VOL+6, NOTE_C5, 4, SFX_VOL+7, NOTE_C5, 4, SFX_VOL+8, NOTE_C5, 4
+.byte SFX_VOL+9, NOTE_C5, 4, SFX_VOL+10, NOTE_C5, 4, SFX_VOL+11, NOTE_C5, 4
+.byte SFX_VOL+12, NOTE_C5, 4, SFX_VOL+13, NOTE_C5, 4, SFX_VOL+14, NOTE_C5, 4
+.byte SFX_VOL+15, NOTE_C5, 10, 0
+
+
+@sfx3:
+;sequence of notes
+.byte SFX_ID+2, SFX_VOL+12, NOTE_C4, 5, SFX_TRIG_OFF, NOTE_D4, 5, NOTE_E4, 5
+.byte NOTE_F4, 5, NOTE_G4, 5, NOTE_A4, 5, NOTE_B4, 5, NOTE_C5, 17, 0
+
+
+@sfx4:
+;pan left to right
+.byte SFX_ID+3, SFX_VOL+8, SFX_PAN+0, NOTE_C5, 5, SFX_TRIG_OFF
+.byte SFX_PAN+2, NOTE_C5, 5, SFX_PAN+4, NOTE_C5, 5
+.byte SFX_PAN+6, NOTE_C5, 5, SFX_PAN+8, NOTE_C5, 5
+.byte SFX_PAN+10, NOTE_C5, 5, SFX_PAN+12, NOTE_C5, 5
+.byte SFX_PAN+14, NOTE_C5, 5, SFX_PAN+15, NOTE_C5, 5, 0
+
+
+
+
